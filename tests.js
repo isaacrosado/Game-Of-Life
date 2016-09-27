@@ -51,6 +51,16 @@
       });
     });
 
+    describe("getLiveNeighbors", function() {
+      it("should be 2", function() {
+        grid = Grid();
+        grid.createGrid(5, 5);
+        grid.invertCellState(0, 1);
+        grid.invertCellState(1, 2);
+        assert.strictEqual(grid.getLiveNeighbors(0, 2), 2);
+      });
+    });
+
   });
 
   mocha.run();

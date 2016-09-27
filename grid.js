@@ -11,22 +11,27 @@ var Grid = function() {
 	//The actual grid of cells
 	var grid;
 
+	//An array representing the offsets for the neighbors
+	var offsetArray = [[-1, 1], [0, 1], [1, 1],
+					   [-1, 0], [1, 0],
+					   [-1, -1], [0, -1], [1, -1]];
+
 	/**
 	* Creates a grid of dead cells
 	*
 	* @param {Integer} numRows - the number of rows that will be in the grid
 	* @param {Integer} numColumns - the number of columns that will be in the grid
 	*/
-	that.createGrid = function(numRows, numColumns) {
+	that.createGrid = function(numColumns, numRows) {
 		rows = numRows;
 		columns = numColumns;
 		grid = []
-		times(rows, function() {
-			var column = [];
-			grid.push(column);
-			times(columns, function() {
+		times(columns, function() {
+			var row = [];
+			grid.push(row);
+			times(rows, function() {
 				var cell = Cell();
-				column.push(cell);
+				row.push(cell);
 				cell.setState(false);
 			});
 		});
@@ -39,8 +44,8 @@ var Grid = function() {
 	* @param {Integer} column - the column of the cell
 	* @param {Boolean} state - the state that the cell will be set to
 	*/
-	that.setCellState = function(row, column, state) {
-		grid[row][column].setState(state);
+	that.setCellState = function(column, row, state) {
+		grid[column][row].setState(state);
 	};
 
 	/**
@@ -50,8 +55,8 @@ var Grid = function() {
 	* @param {Integer} column - the column of the cell
 	* @return {Boolean} the state of the cell
 	*/
-	that.getCellState = function(row, column) {
-		return grid[row][column].getState();
+	that.getCellState = function(column, row) {
+		return grid[column][row].getState();
 	};
 
 	/**
@@ -60,8 +65,22 @@ var Grid = function() {
 	* @param {Integer} row - the row of the cell
 	* @param {Integer} column - the column of the cell
 	*/
-	that.invertCellState = function(row, column) {
-		grid[row][column].invertState();
+	that.invertCellState = function(column, row) {
+		grid[column][row].invertState();
+	};
+
+	that.getLiveNeighbors = function(column, row) {
+		return offsetArray.map(function(e) {
+			return [e[0] + column, e[1] + row];
+		}).filter(function(e) {
+			return (e[0] >= 0 && e[0] < columns && e[1] >= 0 && e[1] < rows);
+		}).reduce(function(total, e) {
+			if (that.getCellState(e[0], e[1])) {
+				return total += 1;
+			} else {
+				return total;
+			};
+		}, 0);
 	};
 
 	Object.freeze(that);
