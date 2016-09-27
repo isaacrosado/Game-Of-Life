@@ -114,13 +114,33 @@ var Grid = function() {
 	that.advanceRound = function() {
 		var column = 0;
 		times(columns, function() {
-			var row = 0
+			var row = 0;
 			times(rows, function() {
 				that.nextCellState(column, row);
 				row++;
 			});
 			column++
 		});
+	};
+
+	/**
+	* Returns a list that has all of the cells and their states
+	*
+	* @return {Array} - an array of arrays where each inner array has the state of the cell as the first element,
+	*					the column of the cell as the second element, and the row of the cell as the third element
+	*/
+	that.getAllCells = function() {
+		var cellStates = [];
+		var column = 0;
+		times(columns, function() {
+			var row = 0;
+			times(rows, function() {
+				cellStates.push([that.getCellState(column, row), column, row]);
+				row++
+			});
+			column++
+		});
+		return cellStates;
 	};
 
 	Object.freeze(that);

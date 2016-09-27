@@ -22,20 +22,44 @@
 			var game = Game();
 			game.startGame(columns, rows);
 
-			var column = 0;
-			times(columns, function() {
-				$("#grid").append("<div id=Column" + column + " class=column>");
-				$(".column").width($(".column").parent().width() / columns);
-				$(".column").height($(".column").parent().height());			
-				var row = 0;
-				times(rows, function() {
-					$("#Column" + column).append("<div id=" + column + "," + row + " class=cell>");
-					$(".cell").width($(".cell").parent().width());
-					$(".cell").height($(".cell").parent().height() / rows);
-					row++;
+			var createGrid = function() {
+				var column = 0;
+				times(columns, function() {
+					$("#grid").append("<div id=Column" + column + " class=column>");
+					$(".column").width($(".column").parent().width() / columns);
+					$(".column").height($(".column").parent().height());			
+					var row = 0;
+					times(rows, function() {
+						$("#Column" + column).append("<div id=" + column + "" + row + " class=cell>");
+						$(".cell").width($(".cell").parent().width());
+						$(".cell").height($(".cell").parent().height() / rows);
+						row++;
+					});
+					column++;
 				});
-				column++;
+			}();
+
+			$(".cell").click(function(event) {
+				var id = event.target.id
+				var column = id[0];
+				var row = id[1];
+				game.invertCellState(column, row);
 			});
+
+			var updateGridState = function() {
+				setInterval(function() {
+					$(".cell").each(function() {
+						var id = this.id;
+						var column = id[0];
+						var row = id[1];
+						if (game.getCellState(column, row)) {
+							document.getElementById(id).style.backgroundColor = "#00ff00";
+						} else {
+							document.getElementById(id).style.backgroundColor = "#e6e6e6";
+						};
+					});
+				}, 1);
+			}();
 
 		});
 

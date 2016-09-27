@@ -34,6 +34,25 @@ var Game = function() {
 		play = false;
 	};
 
+	/**
+	* Inverts the state of the cell in the grid at [column, row]
+	*
+	* @param {Integer} column - the column of the cell
+	* @param {Integer} row - the row of the cell
+	*/
+	that.invertCellState = function(column, row) {
+		grid.invertCellState(column, row);
+		alert(grid.getCellState(column, row));
+	};
+
+	that.getCellState = function(column, row) {
+		return grid.getCellState(column, row);
+	};
+
+	that.getAllCells = function() {
+		return grid.getAllCells();
+	};
+
 	Object.freeze(that);
 	return that;
 
