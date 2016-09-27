@@ -12,6 +12,11 @@
 
 	<div id="grid"></div>
 
+	<div id="buttons">
+		<img src="./images/play.jpg" id="play">
+		<img src="./images/pause.png" id="pause">
+	</div>
+
 	<script type="text/javascript">
 		
 		$(document).ready(function() {
@@ -40,10 +45,20 @@
 			}();
 
 			$(".cell").click(function(event) {
-				var id = event.target.id
-				var column = id[0];
-				var row = id[1];
-				game.invertCellState(column, row);
+				if (!game.getMode()) {
+					var id = event.target.id
+					var column = id[0];
+					var row = id[1];
+					game.invertCellState(column, row);
+				};
+			});
+
+			$("#play").click(function() {
+				game.enterPlay();
+			});
+
+			$("#pause").click(function() {
+				game.pause();
 			});
 
 			var updateGridState = function() {

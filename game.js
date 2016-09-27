@@ -7,7 +7,7 @@ var Game = function() {
 
 	//Play mode
 	//If true then the game is currently in play mode, if false then the game is paused
-	var play;
+	var play = false;
 
 	/**
 	* Sets up the grid for the Game Of Life
@@ -35,6 +35,15 @@ var Game = function() {
 	};
 
 	/**
+	* Gets the mode that the game is in
+	*
+	* @return {Boolean} - true if the game is in play mode, otherwise false
+	*/
+	that.getMode = function() {
+		return play;
+	};
+
+	/**
 	* Inverts the state of the cell in the grid at [column, row]
 	*
 	* @param {Integer} column - the column of the cell
@@ -42,15 +51,15 @@ var Game = function() {
 	*/
 	that.invertCellState = function(column, row) {
 		grid.invertCellState(column, row);
-		alert(grid.getCellState(column, row));
 	};
 
+	/**
+	* Gets the state of the cell in the grid at [column, row]
+	*
+	* @return {Boolean} true if the cell is alive, otherwise false
+	*/
 	that.getCellState = function(column, row) {
 		return grid.getCellState(column, row);
-	};
-
-	that.getAllCells = function() {
-		return grid.getAllCells();
 	};
 
 	Object.freeze(that);

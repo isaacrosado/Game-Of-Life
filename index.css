@@ -24,3 +24,27 @@ h1 {
 	outline: 1px solid;
 
 }
+
+#buttons {
+
+	width: 500px;
+	margin: auto;
+
+}
+
+#play {
+
+	height: 50px;
+	width: 50px;
+	padding-top: 20px;
+	float: left;
+
+}
+
+#pause {
+
+	height: 100px;
+	width: 100px;
+	float: left;
+
+}
