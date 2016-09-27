@@ -69,6 +69,12 @@ var Grid = function() {
 		grid[column][row].invertState();
 	};
 
+	/**
+	* Gets the number of neighbors of a cell that are alive
+	* 
+	* @param {Integer} column - the column of the cell
+	* @param {Integer} row - the row of the cell
+	*/
 	that.getLiveNeighbors = function(column, row) {
 		return offsetArray.map(function(e) {
 			return [e[0] + column, e[1] + row];
@@ -81,6 +87,25 @@ var Grid = function() {
 				return total;
 			};
 		}, 0);
+	};
+
+	/**
+	* Gets the next cell state after a round of the Game Of Life
+	*
+	* @param {Integer} column - the column of the cell
+	* @param {Integer} row - the row of the cell
+	*/
+	that.nextCellState = function(column, row) {
+		var liveNeighbors = that.getLiveNeighbors(column, row);
+		if (that.getCellState(column, row)) {
+			if (liveNeighbors < 2 || liveNeighbors > 3) {
+				that.invertCellState(column, row);
+			};
+		} else {
+			if (liveNeighbors === 3) {
+				that.invertCellState(column, row);
+			};
+		};
 	};
 
 	Object.freeze(that);

@@ -61,6 +61,26 @@
       });
     });
 
+    describe("nextCellState", function() {
+      it("should die", function() {
+        grid = Grid();
+        grid.createGrid(4, 4);
+        grid.invertCellState(3, 3);
+        grid.nextCellState(3, 3);
+        assert.isFalse(grid.getCellState(3, 3));
+      });
+
+      it("should be reproduced", function() {
+        grid = Grid();
+        grid.createGrid(5, 5);
+        grid.invertCellState(1, 1);
+        grid.invertCellState(2, 1);
+        grid.invertCellState(1, 3);
+        grid.nextCellState(2, 2);
+        assert.isTrue(grid.getCellState(2, 2));
+      });
+    });
+
   });
 
   mocha.run();
