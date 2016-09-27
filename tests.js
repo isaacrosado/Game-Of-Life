@@ -81,6 +81,16 @@
       });
     });
 
+    describe("advanceRound", function() {
+      it("should become completely dead", function() {
+        grid = Grid();
+        grid.createGrid(3, 3);
+        grid.invertCellState(2, 1);
+        grid.advanceRound();
+        assert.isFalse(grid.getCellState(2, 1));
+      });
+    });
+
   });
 
   mocha.run();

@@ -8,7 +8,42 @@
 
 <body>
 
+	<h1>Game Of Life</h1>
 
+	<div id="grid"></div>
+
+	<script type="text/javascript">
+		
+		$(document).ready(function() {
+
+			var columns = 6;
+			var rows = 6;
+
+			var game = Game();
+			game.startGame(columns, rows);
+
+			var column = 0;
+			times(columns, function() {
+				$("#grid").append("<div id=Column" + column + " class=column>");
+				$(".column").width($(".column").parent().width() / columns);
+				$(".column").height($(".column").parent().height());			
+				var row = 0;
+				times(rows, function() {
+					$("#Column" + column).append("<div id=" + column + "," + row + " class=cell>");
+					$(".cell").width($(".cell").parent().width());
+					$(".cell").height($(".cell").parent().height() / rows);
+					row++;
+				});
+				column++;
+			});
+
+		});
+
+	</script>
+
+	<script src="./cell.js"></script>
+	<script src="./grid.js"></script>
+	<script src="./game.js"></script>
 
 </body>
 </html>

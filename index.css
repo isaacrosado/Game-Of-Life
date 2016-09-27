@@ -1,0 +1,26 @@
+h1 {
+
+	text-align: center;
+
+}
+
+#grid {
+
+	outline: 3px solid;
+	height: 500px;
+	width: 500px;
+	margin: auto;
+
+}
+
+.column {
+
+	float: left;
+
+}
+
+.cell {
+
+	outline: 1px solid;
+
+}

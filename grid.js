@@ -108,6 +108,21 @@ var Grid = function() {
 		};
 	};
 
+	/**
+	* Sets all cells to the next round state
+	*/
+	that.advanceRound = function() {
+		var column = 0;
+		times(columns, function() {
+			var row = 0
+			times(rows, function() {
+				that.nextCellState(column, row);
+				row++;
+			});
+			column++
+		});
+	};
+
 	Object.freeze(that);
 	return that;
 
