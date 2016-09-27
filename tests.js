@@ -33,6 +33,24 @@
       });
     });
 
+    describe("setCellState", function() {
+      it("should be true", function() {
+        grid = Grid();
+        grid.createGrid(3, 3);
+        grid.setCellState(0, 1, true);
+        assert.isTrue(grid.getCellState(0, 1));
+      });
+    });
+
+    describe("invertCellState", function() {
+      it("should be true", function() {
+        grid = Grid();
+        grid.createGrid(4, 5);
+        grid.invertCellState(2, 2);
+        assert.isTrue(grid.getCellState(2, 2));
+      });
+    });
+
   });
 
   mocha.run();
