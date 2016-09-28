@@ -99,11 +99,15 @@ var Grid = function() {
 		var liveNeighbors = that.getLiveNeighbors(column, row);
 		if (that.getCellState(column, row)) {
 			if (liveNeighbors < 2 || liveNeighbors > 3) {
-				that.invertCellState(column, row);
+				return !that.getCellState(column, row);
+			} else {
+				return that.getCellState(column, row);
 			};
 		} else {
 			if (liveNeighbors === 3) {
-				that.invertCellState(column, row);
+				return !that.getCellState(column, row);
+			} else {
+				return that.getCellState(column, row);
 			};
 		};
 	};
@@ -112,14 +116,18 @@ var Grid = function() {
 	* Sets all cells to the next round state
 	*/
 	that.advanceRound = function() {
+		var nextRound = [];
 		var column = 0;
 		times(columns, function() {
 			var row = 0;
 			times(rows, function() {
-				that.nextCellState(column, row);
+				nextRound.push([column, row, that.nextCellState(column, row)]);
 				row++;
 			});
 			column++
+		});
+		nextRound.forEach(function(e) {
+			that.setCellState(e[0], e[1], e[2]);
 		});
 	};
 

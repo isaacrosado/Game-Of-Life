@@ -17,7 +17,7 @@ var Game = function() {
 	*/
 	that.startGame = function(columns, rows) {
 		grid = Grid();
-		grid.createGrid(rows, columns);
+		grid.createGrid(columns, rows);
 	};
 
 	/**
@@ -60,6 +60,13 @@ var Game = function() {
 	*/
 	that.getCellState = function(column, row) {
 		return grid.getCellState(column, row);
+	};
+
+	/**
+	* Advances the game round
+	*/
+	that.advanceRound = function() {
+		grid.advanceRound();
 	};
 
 	Object.freeze(that);

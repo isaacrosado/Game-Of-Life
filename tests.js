@@ -59,6 +59,15 @@
         grid.invertCellState(1, 2);
         assert.strictEqual(grid.getLiveNeighbors(0, 2), 2);
       });
+
+      it("should be 2", function() {
+        grid = Grid();
+        grid.createGrid(6, 6);
+        grid.invertCellState(2, 1);
+        grid.invertCellState(2, 2);
+        grid.invertCellState(2, 3);
+        assert.strictEqual(grid.getLiveNeighbors(1, 3), 2);
+      });
     });
 
     describe("nextCellState", function() {
@@ -66,8 +75,7 @@
         grid = Grid();
         grid.createGrid(4, 4);
         grid.invertCellState(3, 3);
-        grid.nextCellState(3, 3);
-        assert.isFalse(grid.getCellState(3, 3));
+        assert.isFalse(grid.nextCellState(3, 3));
       });
 
       it("should be reproduced", function() {
@@ -76,8 +84,25 @@
         grid.invertCellState(1, 1);
         grid.invertCellState(2, 1);
         grid.invertCellState(1, 3);
-        grid.nextCellState(2, 2);
-        assert.isTrue(grid.getCellState(2, 2));
+        assert.isTrue(grid.nextCellState(2, 2));
+      });
+
+      it("should stay dead", function() {
+        grid = Grid();
+        grid.createGrid(6, 6);
+        grid.invertCellState(2, 1);
+        grid.invertCellState(2, 2);
+        grid.invertCellState(2, 3);
+        assert.isFalse(grid.nextCellState(1, 3));
+      });
+
+      it("should be reproduced", function() {
+        grid = Grid();
+        grid.createGrid(6, 6);
+        grid.invertCellState(2, 1);
+        grid.invertCellState(2, 2);
+        grid.invertCellState(2, 3);
+        assert.isTrue(grid.nextCellState(3, 2));
       });
     });
 
@@ -88,6 +113,16 @@
         grid.invertCellState(2, 1);
         grid.advanceRound();
         assert.isFalse(grid.getCellState(2, 1));
+      });
+
+      it("should be revived", function() {
+        grid = Grid();
+        grid.createGrid(6, 6);
+        grid.invertCellState(2, 1);
+        grid.invertCellState(2, 2);
+        grid.invertCellState(2, 3);
+        grid.advanceRound();
+        assert.isTrue(grid.getCellState(3, 2));
       });
     });
 

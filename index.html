@@ -21,8 +21,9 @@
 		
 		$(document).ready(function() {
 
-			var columns = 6;
-			var rows = 6;
+			var columns = 31;
+			var rows = 25;
+			var play;
 
 			var game = Game();
 			game.startGame(columns, rows);
@@ -35,7 +36,7 @@
 					$(".column").height($(".column").parent().height());			
 					var row = 0;
 					times(rows, function() {
-						$("#Column" + column).append("<div id=" + column + "" + row + " class=cell>");
+						$("#Column" + column).append("<div id=" + column + "," + row + " class=cell>");
 						$(".cell").width($(".cell").parent().width());
 						$(".cell").height($(".cell").parent().height() / rows);
 						row++;
@@ -46,27 +47,34 @@
 
 			$(".cell").click(function(event) {
 				if (!game.getMode()) {
-					var id = event.target.id
-					var column = id[0];
-					var row = id[1];
+					var splitId = event.target.id.split(",")
+					var column = splitId[0];
+					var row = splitId[1];
 					game.invertCellState(column, row);
 				};
 			});
 
 			$("#play").click(function() {
 				game.enterPlay();
+				start();
+				$("#play").css("outline", "1px solid");
+				$("#pause").css("outline", "none");
 			});
 
 			$("#pause").click(function() {
 				game.pause();
+				clearInterval(play);
+				$("#play").css("outline", "none");
+				$("#pause").css("outline", "1px solid");
 			});
 
 			var updateGridState = function() {
 				setInterval(function() {
 					$(".cell").each(function() {
 						var id = this.id;
-						var column = id[0];
-						var row = id[1];
+						var splitId = id.split(",");
+						var column = splitId[0];
+						var row = splitId[1];
 						if (game.getCellState(column, row)) {
 							document.getElementById(id).style.backgroundColor = "#00ff00";
 						} else {
@@ -75,6 +83,12 @@
 					});
 				}, 1);
 			}();
+
+			var start = function() {
+				play = setInterval(function() {
+					game.advanceRound();
+				}, 200);
+			};
 
 		});
 
