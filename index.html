@@ -15,14 +15,19 @@
 	<div id="buttons">
 		<img src="./images/play.jpg" id="play">
 		<img src="./images/pause.png" id="pause">
+		<button id="reset">Killswitch Engage</button>
+		<button id="stillCity">Still City</button>
+		<button id="beacons">Beacons Are Lit</button>
+		<button id="pulsar">Pulsar</button>
+		<button id="fleet">Send The Fleet</button>
 	</div>
 
 	<script type="text/javascript">
 		
 		$(document).ready(function() {
 
-			var columns = 31;
-			var rows = 25;
+			var columns = 17;
+			var rows = 17;
 			var play;
 
 			var game = Game();
@@ -68,6 +73,26 @@
 				$("#pause").css("outline", "1px solid");
 			});
 
+			$("#reset").click(function() {
+				executeIfPause(game.clearGrid);
+			});
+
+			$("#stillCity").click(function() {
+				executeIfPause(game.stillCity);
+			});
+
+			$("#beacons").click(function() {
+				executeIfPause(game.beacons);
+			});
+
+			$("#pulsar").click(function() {
+				executeIfPause(game.pulsar);
+			});
+
+			$("#fleet").click(function() {
+				executeIfPause(game.fleet);
+			});
+
 			var updateGridState = function() {
 				setInterval(function() {
 					$(".cell").each(function() {
@@ -88,6 +113,12 @@
 				play = setInterval(function() {
 					game.advanceRound();
 				}, 200);
+			};
+
+			var executeIfPause = function(f) {
+				if (!game.getMode()) {
+					f();
+				};
 			};
 
 		});

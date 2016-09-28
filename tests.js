@@ -126,6 +126,16 @@
       });
     });
 
+    describe("clearGrid", function() {
+      it("should die", function() {
+        grid = Grid();
+        grid.createGrid(2, 2);
+        grid.invertCellState(0, 0);
+        grid.clearGrid();
+        assert.isFalse(grid.getCellState(0, 0));
+      });
+    });
+
   });
 
   mocha.run();

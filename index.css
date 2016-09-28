@@ -4,6 +4,12 @@ h1 {
 
 }
 
+button {
+
+	margin: 30px 10px;
+
+}
+
 #grid {
 
 	outline: 3px solid;
@@ -48,5 +54,11 @@ h1 {
 	width: 100px;
 	float: left;
 	outline: 1px solid;
+
+}
+
+#reset {
+
+	margin-left: 20px;
 
 }

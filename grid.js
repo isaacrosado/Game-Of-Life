@@ -94,6 +94,7 @@ var Grid = function() {
 	*
 	* @param {Integer} column - the column of the cell
 	* @param {Integer} row - the row of the cell
+	* @return {Boolean} true if the next cell state will be alive, otherwise false
 	*/
 	that.nextCellState = function(column, row) {
 		var liveNeighbors = that.getLiveNeighbors(column, row);
@@ -128,6 +129,21 @@ var Grid = function() {
 		});
 		nextRound.forEach(function(e) {
 			that.setCellState(e[0], e[1], e[2]);
+		});
+	};
+
+	/**
+	* Kills all cells on the grid
+	*/
+	that.clearGrid = function() {
+		var column = 0;
+		times(columns, function() {
+			var row = 0;
+			times(rows, function() {
+				that.setCellState(column, row, false);
+				row++;
+			});
+			column++;
 		});
 	};
 
