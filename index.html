@@ -26,6 +26,7 @@
 		
 		$(document).ready(function() {
 
+			//Must be at least 16 X 16
 			var columns = 17;
 			var rows = 17;
 			var play;
@@ -33,6 +34,9 @@
 			var game = Game();
 			game.startGame(columns, rows);
 
+			/**
+			* Creates the starting grid
+			*/
 			var createGrid = function() {
 				var column = 0;
 				times(columns, function() {
@@ -50,6 +54,9 @@
 				});
 			}();
 
+			/**
+			* Handler for clicking a cell
+			*/
 			$(".cell").click(function(event) {
 				if (!game.getMode()) {
 					var splitId = event.target.id.split(",")
@@ -59,6 +66,9 @@
 				};
 			});
 
+			/**
+			* Handler for the play button
+			*/
 			$("#play").click(function() {
 				game.enterPlay();
 				start();
@@ -66,6 +76,9 @@
 				$("#pause").css("outline", "none");
 			});
 
+			/**
+			* Handler for the pause button
+			*/
 			$("#pause").click(function() {
 				game.pause();
 				clearInterval(play);
@@ -73,26 +86,44 @@
 				$("#pause").css("outline", "1px solid");
 			});
 
+			/**
+			* Handler for resetting the grid
+			*/
 			$("#reset").click(function() {
 				executeIfPause(game.clearGrid);
 			});
 
+			/**
+			* Handler for preset configuration
+			*/
 			$("#stillCity").click(function() {
 				executeIfPause(game.stillCity);
 			});
 
+			/**
+			* Handler for preset configuration
+			*/
 			$("#beacons").click(function() {
 				executeIfPause(game.beacons);
 			});
 
+			/**
+			* Handler for preset configuration
+			*/
 			$("#pulsar").click(function() {
 				executeIfPause(game.pulsar);
 			});
 
+			/**
+			* Handler for preset configuration
+			*/
 			$("#fleet").click(function() {
 				executeIfPause(game.fleet);
 			});
 
+			/**
+			* Colors live cells green and dead cells grey every millisecond
+			*/
 			var updateGridState = function() {
 				setInterval(function() {
 					$(".cell").each(function() {
@@ -109,12 +140,21 @@
 				}, 1);
 			}();
 
+			/**
+			* Runs the game
+			* Updates every fifth of a second
+			*/
 			var start = function() {
 				play = setInterval(function() {
 					game.advanceRound();
 				}, 200);
 			};
 
+			/**
+			* Runs the function if the game is paused
+			*
+			* @param {Function} f - the function to be run
+			*/
 			var executeIfPause = function(f) {
 				if (!game.getMode()) {
 					f();
